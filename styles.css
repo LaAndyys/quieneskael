@@ -1,0 +1,1099 @@
+/* ==========================================================================
+   1. VARIABLES, RESET Y CONFIGURACIÓN BASE
+   ========================================================================== */
+:root {
+    --kos-red: #020084; 
+    --kos-dark-red: #1b005a;
+    --kos-font: 'Passion One', impact, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    font-family: var(--kos-font);
+    overflow-x: hidden;
+}
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN SUPERIOR (NAVBAR)
+   ========================================================================== */
+.main-navbar {
+    background-color: #1a1a1a; /* Un tono oscuro elegante */
+    position: sticky; /* Se queda fija arriba al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que quede por encima de las imágenes, pero abajo del Lightbox */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between; /* Alinea logo a la izquierda y enlaces a la derecha */
+    align-items: center;
+}
+
+.nav-logo a {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav-logo a:hover {
+    color: #ff4757; /* Cambia al color acento de tu web */
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px; /* Separación entre los botones */
+}
+
+.nav-item {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Efecto Hover: Cambia de color */
+.nav-item:hover {
+    color: #ffffff;
+}
+
+/* Indicador visual para la página activa o al pasar el cursor */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 10px;
+    background-color: #ff4757; /* Color de la línea inferior */
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+    width: calc(100% - 20px);
+}
+
+.nav-item.active {
+    color: #ffffff;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 600px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    .nav-links {
+        gap: 15px;
+    }
+}
+/* ==========================================================================
+   2. SECCIÓN PORTADA (HERO) - INDEX
+   ========================================================================== */
+.kos-hero {
+    position: relative;
+    width: 100%;
+    height: 60vh; 
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.kos-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 1;
+}
+
+.kos-vertical-title {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 8%;
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--kos-red);
+    line-height: 0.8;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); 
+}
+
+/* ==========================================================================
+   3. SECCIÓN CINTILLO (BANNER)
+   ========================================================================== */
+.kos-banner {
+    background-color: var(--kos-red);
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.kos-banner h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--kos-red); 
+    -webkit-text-stroke: 2.5px #ffffff; 
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   4. SECCIÓN TARJETAS DE MENÚ (GRID DE 2 COLUMNAS)
+   ========================================================================== */
+.kos-menu-section {
+    position: relative;
+    padding: 60px 20px 100px;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    overflow: hidden;
+}
+
+.kos-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 350px)); /* Modificado a 2 columnas fijas */
+    gap: 40px; 
+    justify-content: center; /* Centra las tarjetas en la pantalla */
+    align-items: start; 
+    max-width: 1100px;
+    width: 100%;
+}
+
+.kos-blur-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(20px); 
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.kos-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.kos-card:hover {
+    transform: translateY(-8px);
+}
+
+.kos-card.card-down {
+    margin-top: 40px; 
+}
+
+.kos-card-img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0; 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.kos-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.kos-card:hover .kos-card-img img {
+    transform: scale(1.05);
+}
+
+.kos-card h3 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    color: #ffffff;
+    -webkit-text-stroke: 1.5px var(--kos-dark-red); 
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+}
+
+/* ==========================================================================
+   5. BOTONES DE NAVEGACIÓN COMUNES (HOME)
+   ========================================================================== */
+.home-button, .home-button-corner {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.home-button:hover, .home-button-corner:hover {
+    transform: scale(1.1);
+}
+
+.discography-page .home-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 20;
+}
+
+/* ==========================================================================
+   6. SECCIÓN: GALERÍA (PÁGINA ANTERIORMENTE DE HISTORIA)
+   ========================================================================== */
+body.history-page {
+    background-color: #fdf9f9; /* Cambiar a #000000 si deseas la galería con fondo negro */
+    position: relative;
+}
+
+.history-hero {
+    width: 100%;
+    height: 35vh; 
+    min-height: 250px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.history-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center center; 
+}
+
+.history-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--kos-red);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+/* NUEVO: Cuadrícula organizada para las 12 imágenes (3 columnas x 4 filas) */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px; 
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    border: 3px solid var(--kos-red); 
+    border-radius: 10px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.06); 
+}
+
+/* ==========================================================================
+   7. SECCIÓN: DISCOGRAFÍA (MENÚ DE ÁLBUMES)
+   ========================================================================== */
+body.discography-page {
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    width: 100vw;
+    background-color: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    position: relative;
+}
+
+.disco-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%; 
+    opacity: 0.55; 
+    z-index: 1;
+}
+
+.deco-squizzle {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none; 
+    width: clamp(100px, 20vw, 250px);
+}
+
+.deco-top-left { top: 30px; left: 30px; }
+.deco-bottom-right { bottom: 30px; right: 30px; }
+
+.album-menu {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2.5vh, 25px); 
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.album-link {
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.album-link img {
+    width: clamp(250px, 45vw, 480px); 
+    height: auto;
+    max-height: 18vh; 
+    object-fit: contain;
+    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.8)); 
+}
+
+.album-link:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.4)); 
+}
+
+/* ==========================================================================
+   8. PLANTILLA MAESTRA DE DETALLE DE ÁLBUMES
+   ========================================================================== */
+body.album-master-page {
+    background-color: #050505;
+    background-image: url('images/fondo_estrellas.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+.album-bg {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: 50% 15%;
+    z-index: 0; 
+    opacity: 0.6; 
+    pointer-events: none; 
+}
+
+.album-detail-container {
+    position: relative;
+    z-index: 10; 
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.album-logo-wrapper {
+    margin-bottom: 25px;
+}
+
+.album-logo-wrapper img {
+    width: clamp(200px, 30vw, 350px);
+    height: auto;
+    filter: drop-shadow(0px 5px 15px rgba(255, 255, 255, 0.2)); 
+}
+
+.album-lead-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 800;
+    text-align: center;
+    max-width: 750px;
+    margin-bottom: 60px;
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.album-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 50px 60px; 
+    align-items: center;
+    width: 100%;
+}
+
+.info-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: justify;
+    font-weight: 500;
+    margin: 0;
+}
+
+.info-image {
+    display: flex;
+    justify-content: center;
+}
+
+.info-image.bordered img {
+    width: 100%;
+    max-width: 380px;
+    border-radius: 15px;
+    border: 3px solid #ffffff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.info-image.transparent img {
+    width: 100%;
+    max-width: 250px; 
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+/* ==========================================================================
+   9. SECCIÓN TOP CANCIONES (DENTRO DE ÁLBUMES)
+   ========================================================================== */
+.album-top-tracks {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 80px; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-radius: 15px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.tracks-heading {
+    font-family: var(--kos-font);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #00d2ff; 
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.tracks-subtitle {
+    font-size: 0.9rem;
+    color: #aaaaaa;
+    text-align: center;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.track-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-decoration: none; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.track-item:hover {
+    background-color: rgba(255, 255, 255, 0.08); 
+    transform: scale(1.02); 
+}
+
+.track-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.track-number {
+    font-family: var(--kos-font);
+    font-size: 1.5rem;
+    color: #00d2ff; 
+    width: 25px; 
+    text-align: right;
+}
+
+.track-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.track-right {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #cccccc;
+}
+
+.track-views {
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   10. SECCIÓN: PRODUCTOS (MERCH)
+   ========================================================================== */
+body.products-page {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    min-height: 100vh;
+    overflow-x: hidden; 
+}
+
+.products-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh; 
+    min-height: 800px; 
+}
+
+.product-banner {
+    position: relative;
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: filter 0.3s ease;
+}
+
+.product-banner:hover {
+    filter: brightness(1.15); 
+}
+
+.bg-blue { background: linear-gradient(to bottom, #00173d 0%, #0072ff 50%, #000a1a 100%); }
+.bg-grey { background: linear-gradient(to bottom, #111111 0%, #8a8a8a 50%, #050505 100%); }
+.bg-red { background: linear-gradient(to bottom, #3a0000 0%, #d40000 50%, #1a0000 100%); }
+.bg-darkred { background: linear-gradient(to bottom, #1a0000 0%, #600000 50%, #0a0000 100%); }
+
+.product-title {
+    font-family: var(--kos-font);
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 6px;
+    z-index: 2;
+    margin: 0;
+    text-shadow: 2px 5px 15px rgba(0, 0, 0, 0.7); 
+}
+
+.title-left { margin-left: 15%; margin-right: auto; }
+.title-right { margin-right: 15%; margin-left: auto; }
+
+.product-img {
+    position: absolute;
+    height: 130%; 
+    z-index: 10; 
+    object-fit: contain;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.8)); 
+    pointer-events: none; 
+}
+
+.product-banner:hover .product-img {
+    transform: scale(1.08) rotate(2deg); 
+}
+
+.img-left { left: 8%; top: -15%; }
+.img-right { right: 8%; top: -15%; }
+
+.img-kkarma-back {
+    right: 2%; 
+    top: -15%;
+    z-index: 10; 
+}
+
+.img-kkarma-front {
+    right: 18%; 
+    top: -5%; 
+    z-index: 11; 
+    height: 120%; 
+}
+
+/* ==========================================================================
+   11. SECCIÓN: CONCIERTOS (TOUR)
+   ========================================================================== */
+body.conciertos-page {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.conciertos-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center; 
+    z-index: 0;
+    opacity: 0.65; 
+    pointer-events: none;
+}
+
+.conciertos-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1300px;
+    padding: 60px 40px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.fechas-list {
+    flex: 1.5; 
+    min-width: 320px;
+}
+
+.fechas-list ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.fechas-list li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; 
+    font-size: clamp(1.1rem, 2vw, 1.5rem); 
+    line-height: 1.4;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1), -1px -1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.fechas-list li.past-date { color: #c41c1c; }
+.fechas-list li.upcoming-date { color: #ffffff; }
+
+.conciertos-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.conciertos-image img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 18px; 
+    border: 4px solid #ffffff; 
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.7);
+    transition: transform 0.4s ease;
+}
+
+.conciertos-image img:hover {
+    transform: scale(1.05) rotate(-2deg); 
+}
+
+/* ==========================================================================
+   12. MEDIA QUERIES (DISEÑO RESPONSIVO UNIFICADO)
+   ========================================================================== */
+
+/* Tablets y pantallas medianas (hasta 900px) */
+@media (max-width: 900px) {
+    .kos-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 40px;
+    }
+    .conciertos-container {
+        flex-direction: column-reverse; 
+        padding: 80px 20px 40px;
+        gap: 40px;
+    }
+    .fechas-list li {
+        font-size: 1.05rem; 
+    }
+}
+
+/* Dispositivos Móviles Grandes y Medios (hasta 768px) */
+@media (max-width: 768px) {
+    .gallery-container {
+        grid-template-columns: 1fr; /* La galería pasa a una sola columna en móvil */
+        gap: 20px;
+    }
+    .album-info-grid {
+        grid-template-columns: 1fr; 
+        gap: 40px;
+    }
+    .info-text p {
+        text-align: center; 
+    }
+    .products-container {
+        height: auto; 
+        min-height: 100vh;
+    }
+    .product-banner {
+        height: 25vh; 
+        min-height: 200px;
+    }
+    .title-left { margin-left: 5%; }
+    .title-right { margin-right: 5%; }
+    .product-title {
+        text-underline-offset: 4px;
+        text-decoration-thickness: 3px;
+    }
+    .product-img {
+        height: 110%; 
+    }
+    .img-left { left: 2%; }
+    .img-right { right: 2%; }
+    .img-kkarma-back { right: -5%; height: 100%; }
+    .img-kkarma-front { right: 12%; height: 100%; }
+}
+
+/* Celulares Pequeños (hasta 500px / 600px) */
+@media (max-width: 600px) {
+    .kos-hero {
+        height: 45vh; 
+    }
+    .kos-grid {
+        grid-template-columns: 1fr; 
+        gap: 50px;
+    }
+    .kos-card.card-down {
+        margin-top: 0; /* Quita el escalonado en celular */
+    }
+    .kos-card-img {
+        max-width: 320px; 
+    }
+    .album-top-tracks {
+        padding: 30px 15px;
+    }
+    .track-item {
+        padding: 12px 10px;
+    }
+    .track-name {
+        font-size: 0.95rem;
+    }
+    .track-views {
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================================================================
+   13. EFECTO LIGHTBOX (PANTALLA COMPLETA PARA LA GALERÍA)
+   ========================================================================== */
+.lightbox {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Por encima de todo */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo negro semitransparente */
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+
+/* La imagen ampliada */
+.lightbox img {
+    max-width: 90vh; /* Controla el ancho máximo */
+    max-height: 85vh; /* Controla el alto máximo para que quepa en cualquier pantalla */
+    object-fit: contain; /* ¡CLAVE! Muestra la imagen completa sin recortar absolutamente nada */
+    border: 3px solid #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.25s ease; /* Efecto suave de apertura */
+}
+
+/* Botón de cerrar (X) */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 50px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2);
+}
+
+/* Animación de entrada */
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   DISEÑO EXCLUSIVO DE LA PÁGINA DE HISTORIA (historia.html)
+   ========================================================================== */
+
+/* Contenedor General de la Página */
+.story-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- SECCIÓN 1: TRAMA Y PÓSTER (Dos Columnas) --- */
+.story-hero-section {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.story-info {
+    flex: 1; /* Toma la mayor parte del espacio izquierdo */
+}
+
+.story-title {
+    font-size: 2.8rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    border-left: 5px solid #00d2d3; /* Detalle azul eléctrico como el traje de Kael */
+    padding-left: 15px;
+}
+
+.story-block {
+    margin-bottom: 25px;
+}
+
+.story-block h2 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.accent-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00d2d3;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.story-block p {
+    line-height: 1.7;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Columna del Póster */
+.story-poster-container {
+    flex: 0 0 380px; /* Mantiene el ancho sugerido para la columna en pantallas grandes */
+    position: sticky;
+    top: 90px;
+}
+
+.poster-frame {
+    background-color: #151515;
+    border: 2px solid #252525;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease;
+    
+    /* Asegura que el contenedor se acople al tamaño real de la imagen */
+    width: 100%; 
+    height: auto;
+}
+
+.poster-frame:hover {
+    transform: translateY(-5px);
+    border-color: #00d2d3;
+}
+
+.poster-frame img {
+    width: 100%;        /* Obliga a la imagen a expandirse al ancho total de la caja */
+    height: auto;       /* Calcula el alto automáticamente para no deformar tu diseño */
+    display: block;
+    object-fit: normal; /* Elimina cualquier restricción de escalado previo */
+    border-radius: 6px;
+}
+
+/* Separador de Secciones */
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #252525, #00d2d3, #252525, transparent);
+    margin: 50px 0;
+}
+
+/* --- SECCIÓN 2: PERSONAJES --- */
+.characters-section {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+/* Rejilla de Tarjetas */
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Tarjeta de Personaje */
+.character-card {
+    background-color: #181818;
+    border: 1px solid #282828;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.character-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Tarjetas Destacadas (Kael y NUL ocupan el doble de ancho en pantallas grandes) */
+.core-character {
+    grid-column: span 2;
+    border-color: #353535;
+    background: linear-gradient(145deg, #181818, #1c1c1c);
+}
+
+.antagonist-card {
+    border-left: 4px solid #ff4757; /* Detalle rojo para el peligro de NUL */
+}
+
+.character-card:not(.core-character) {
+    grid-column: span 1;
+}
+
+/* Encabezados internos de la tarjeta */
+.char-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #282828;
+    padding-bottom: 10px;
+}
+
+.char-header h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.char-header h3 small {
+    font-size: 0.85rem;
+    color: #888888;
+    font-weight: normal;
+}
+
+/* Etiquetas/Badges de Roles */
+.badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.protagonist { background-color: rgba(0, 210, 211, 0.15); color: #00d2d3; border: 1px solid #00d2d3; }
+.antagonist { background-color: rgba(255, 71, 87, 0.15); color: #ff4757; border: 1px solid #ff4757; }
+.hero { background-color: rgba(255, 255, 255, 0.08); color: #ffffff; }
+.support { background-color: rgba(2ffa, 180, 0, 0.15); color: #ffb142; }
+.villain { background-color: rgba(165, 94, 234, 0.15); color: #a55eea; }
+
+/* Cuerpo de la tarjeta */
+.char-body p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #aaaaaa;
+    margin-bottom: 12px;
+}
+
+.char-body strong {
+    color: #ffffff;
+}
+
+/* --- RESPONSIVIDAD (Ajustes para móviles y tablets) --- */
+@media (max-width: 968px) {
+    .story-hero-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .story-poster-container {
+        flex: none;
+        width: 100%;
+        max-width: 400px;
+        position: static;
+    }
+
+    .core-character {
+        grid-column: span 1; /* En pantallas chicas, todas las tarjetas se adaptan a una sola columna */
+    }
+}
